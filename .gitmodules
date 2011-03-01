@@ -10,3 +10,6 @@
 [submodule "mingw"]
 	path = mingw
 	url = git@gitorious.org:cegcc/cegcc-svn-mingw.git
+[submodule "mingwdll"]
+	path = mingwdll
+	url = git@gitorious.org:cegcc/cegcc-svn-mingwdll.git
