@@ -20,7 +20,8 @@ fi
 
 # The list of components, in build order.  There's a build_FOO
 # function for each of these components
-COMPONENTS=( binutils bootstrap_gcc mingw w32api gcc profile dlls docs )
+COMPONENTS=( binutils bootstrap_gcc mingw w32api gcc dlls )
+#profile docs 
 COMPONENTS_NUM=${#COMPONENTS[*]}
 
 # Build comma separated list of components, for user display.
