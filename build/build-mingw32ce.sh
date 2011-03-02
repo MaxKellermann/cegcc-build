@@ -540,6 +540,9 @@ echo "source: ${BASE_DIRECTORY}"
 echo "building in: ${BUILD_DIR}"
 echo "prefix: ${PREFIX}"
 echo "components: ${components}"
+echo "Build: ${BUILD}"
+echo "Host: ${HOST}"
+echo "Target: ${TARGET}"
 
 mkdir -p ${BUILD_DIR}
 mkdir -p ${PREFIX}
