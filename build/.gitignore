@@ -1,0 +1,6 @@
+binutils
+gcc-bootstrap
+gcc
+mingw
+mingwdll
+w32api
