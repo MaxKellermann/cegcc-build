@@ -12,7 +12,7 @@ export BASE_DIRECTORY
 #
 export BUILD_DIR=`pwd`
 
-ac_default_prefix="/opt/mingw32ce"
+ac_default_prefix="$BUILD_DIR/../dist"
 
 if test -z "${gcc_src}"; then
     export gcc_src=gcc-4.4.0

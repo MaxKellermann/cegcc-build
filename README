@@ -12,6 +12,9 @@ git submodule update
 cd build
 ./build-mingw32ce.sh --prefix=/where/to/install
 
+If you won't specify --prefix, it will install to cegcc-build/dist/ .
+
+
 To update afterwards:
 
 git pull
