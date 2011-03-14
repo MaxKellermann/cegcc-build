@@ -1,15 +1,15 @@
 [submodule "w32api"]
 	path = w32api
-	url = git@gitorious.org:cegcc/cegcc-w32api.git
+	url = git://gitorious.org/cegcc/cegcc-svn-w32api.git
 [submodule "binutils"]
 	path = binutils
-	url = git@gitorious.org:cegcc/cegcc-svn-binutils.git
+	url = git://gitorious.org/cegcc/cegcc-svn-binutils.git
 [submodule "gcc-4.4.0"]
 	path = gcc-4.4.0
-	url = git@gitorious.org:cegcc/cegcc-svn-gcc-4_4_0.git
+	url = git://gitorious.org/cegcc/cegcc-svn-gcc-4_4_0.git
 [submodule "mingw"]
 	path = mingw
-	url = git@gitorious.org:cegcc/cegcc-svn-mingw.git
+	url = git://gitorious.org/cegcc/cegcc-svn-mingw.git
 [submodule "mingwdll"]
 	path = mingwdll
-	url = git@gitorious.org:cegcc/cegcc-svn-mingwdll.git
+	url = git://gitorious.org/cegcc/cegcc-svn-mingwdll.git
