@@ -1,6 +1,6 @@
 [submodule "w32api"]
 	path = w32api
-	url = git://gitorious.org/cegcc/cegcc-svn-w32api.git
+	url = git://gitorious.org/cegcc/cegcc-w32api.git
 [submodule "binutils"]
 	path = binutils
 	url = git://gitorious.org/cegcc/cegcc-svn-binutils.git
