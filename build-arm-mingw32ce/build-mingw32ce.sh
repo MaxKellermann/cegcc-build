@@ -12,7 +12,7 @@ export BASE_DIRECTORY
 #
 export BUILD_DIR=`pwd`
 
-ac_default_prefix="$BUILD_DIR/../dist"
+ac_default_prefix="$BUILD_DIR/../bindist-arm-mingw32ce"
 
 if test -z "${gcc_src}"; then
     export gcc_src=gcc-4.4.0
