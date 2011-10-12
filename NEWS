@@ -1,0 +1,13 @@
+Change log of cegcc-mk
+======================
+
+2011-10-12
+
+2011-10-10
+- upgrade gcc to 4.4.6
+  fixes strongly-typed enums (C++11)
+
+2011-10-07
+- initial release of this fork
+- libstdc++: workaround for C++11 with -fno-rtti
+- w32api: add AlphaBlend() to coredll.def
