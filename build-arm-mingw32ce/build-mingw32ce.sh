@@ -52,6 +52,7 @@ Usage: $0 [OPTIONS] ...
   --components=LIST       specify which components to build
                           valid components are: ${COMPONENTS_COMMA_LIST}
 			  [all]
+  --incremental           do an incremental build
 
 Report bugs to <cegcc-devel@lists.sourceforge.net>.
 _ACEOF
@@ -104,6 +105,9 @@ do
     ac_prev=host ;;
   --host=*)
     host=$ac_optarg ;;
+
+  --incremental)
+    incremental=yes ;;
 
   -*) { echo "$as_me: error: unrecognized option: $ac_option
 Try \`$0 --help' for more information." >&2
@@ -193,6 +197,13 @@ function configure_module()
 
     mkdir -p $subdir
     cd $subdir
+
+    if [ "$incremental" = "yes" \
+	-a Makefile -nt $src/configure \
+	-a Makefile -nt $src/Makefile.in ]; then
+        # Makefile is fresh, don't need to reconfigure
+        return
+    fi
 
     $src/configure \
         --prefix=${PREFIX} \
