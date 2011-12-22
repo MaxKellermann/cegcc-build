@@ -182,18 +182,45 @@ if [ -d ${BUILD_DIR}/.svn ]; then
 	exit 1
 fi
 
+# configure_module MODULE SUBDIR [configure-arguments ...]
+function configure_module()
+{
+    local module="$1"
+    local subdir="$2"
+    shift 2
+
+    src="${BASE_DIRECTORY}/${module}"
+
+    mkdir -p $subdir
+    cd $subdir
+
+    $src/configure \
+        --prefix=${PREFIX} \
+	--build=${BUILD} \
+        "$@"
+}
+
+function configure_host_module()
+{
+    configure_module "$@" \
+	--host=${HOST} \
+	--target=${TARGET}
+}
+
+function configure_target_module()
+{
+    configure_module "$@" \
+	--host=${TARGET} \
+	--target=${TARGET}
+}
+
 build_binutils()
 {
     echo ""
     echo "BUILDING BINUTILS --------------------------"
     echo ""
     echo ""
-    mkdir -p binutils
-    cd binutils
-    ${BASE_DIRECTORY}/binutils/configure \
-	--prefix=${PREFIX}      \
-	--host=${HOST}          \
-	--target=${TARGET}      \
+    configure_host_module binutils binutils \
 	--disable-nls		\
 	--disable-werror
 
@@ -205,17 +232,10 @@ build_binutils()
 
 build_bootstrap_gcc()
 {
-    mkdir -p gcc-bootstrap
-    cd gcc-bootstrap
-
-    ${BASE_DIRECTORY}/${gcc_src}/configure	       \
+    configure_host_module $gcc_src gcc-bootstrap \
 	--with-gcc                     \
 	--with-gnu-ld                  \
 	--with-gnu-as                  \
-	--target=${TARGET}             \
-	--build=${BUILD}               \
-	--host=${HOST}                 \
-	--prefix=${PREFIX}             \
 	--disable-threads              \
 	--disable-nls                  \
 	--enable-languages=c           \
@@ -246,12 +266,7 @@ build_bootstrap_gcc()
 
 build_w32api()
 {
-    mkdir -p w32api
-    cd w32api
-
-    ${BASE_DIRECTORY}/w32api/configure \
-	--host=${TARGET}               \
-	--prefix=${PREFIX}
+    configure_target_module w32api w32api
 
     make ${PARALLELISM}
     make install
@@ -288,13 +303,7 @@ build_w32api()
 
 build_mingw()
 {
-    mkdir -p mingw
-    cd mingw
-    ${BASE_DIRECTORY}/mingw/configure \
-	--build=${BUILD}              \
-	--host=${TARGET}              \
-	--target=${TARGET}            \
-	--prefix=${PREFIX}
+    configure_target_module mingw mingw
 
     make ${PARALLELISM}
     make install
@@ -304,17 +313,10 @@ build_mingw()
 
 build_gcc()
 {
-    mkdir -p gcc
-    cd gcc
-
-    ${BASE_DIRECTORY}/${gcc_src}/configure	\
+    configure_host_module ${gcc_src} gcc \
         --with-gcc                     \
         --with-gnu-ld                  \
         --with-gnu-as                  \
-        --build=${BUILD}               \
-        --target=${TARGET}             \
-        --host=${HOST}                 \
-        --prefix=${PREFIX}             \
         --enable-threads=win32         \
         --disable-nls                  \
         --enable-languages=c,c++       \
@@ -347,15 +349,10 @@ build_gdb()
     echo ""
     echo ""
 
-    mkdir -p gdb
-    cd gdb
-
-    ${BASE_DIRECTORY}/gdb/configure  \
+    configure_host_module gdb gdb \
 	--with-gcc                     \
 	--with-gnu-ld                  \
 	--with-gnu-as                  \
-	--target=${TARGET}             \
-	--prefix=${PREFIX}             \
 	--disable-nls                  \
 	--disable-win32-registry       \
 	--disable-multilib             \
@@ -377,13 +374,7 @@ build_gdbserver()
     echo ""
     echo ""
 
-    mkdir -p gdbserver
-    cd gdbserver
-
-    ${BASE_DIRECTORY}/gdb/gdbserver/configure  \
-	--target=${TARGET}             \
-	--host=${TARGET}               \
-	--prefix=${PREFIX}             \
+    configure_target_module gdb/gdbserver gdbserver
 
     make ${PARALLELISM}
     make install
@@ -425,11 +416,7 @@ build_profile()
     mkdir -p profile
     cd profile
 
-    ${BASE_DIRECTORY}/profile/configure  \
-	--build=${BUILD}              \
-	--host=${TARGET}              \
-	--target=${TARGET}            \
-	--prefix=${PREFIX}
+    configure_target_module profile profile
 
     make ${PARALLELISM}
     make install
