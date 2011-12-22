@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+set -e
+
 BASE_DIRECTORY=`dirname $0`
 BASE_DIRECTORY=`(cd ${BASE_DIRECTORY}; cd ..; pwd)`
 ME=`basename $0`
@@ -66,7 +68,7 @@ do
     continue
   fi
 
-  ac_optarg=`expr "x$ac_option" : 'x[^=]*=\(.*\)'`
+  ac_optarg=`expr "x$ac_option" : 'x[^=]*=\(.*\)' ||true`
 
   case $ac_option in
 
@@ -222,20 +224,20 @@ build_bootstrap_gcc()
 	--disable-shared               \
 	--disable-interwork            \
 	--without-newlib               \
-	--enable-checking	|| exit 1
+	--enable-checking
     
     case ${gcc_src} in
         gcc)
-            make ${PARALLELISM} all-gcc	|| exit 1
-            make install-gcc	|| exit 1
+            make ${PARALLELISM} all-gcc
+            make install-gcc
         ;;
         gcc-*)   
-            make ${PARALLELISM} all-gcc	|| exit 1
-            make configure-target-libgcc || exit 1
-            make install-gcc	|| exit 1
-            cd ${TARGET}/libgcc	|| exit 1
-            make ${PARALLELLISM} libgcc.a	|| exit 1
-            /usr/bin/install -c -m 644 libgcc.a ${PREFIX}/lib/gcc/${TARGET}/4.5.3 || exit 1
+            make ${PARALLELISM} all-gcc
+            make configure-target-libgcc
+            make install-gcc
+            cd ${TARGET}/libgcc
+            make ${PARALLELLISM} libgcc.a
+            /usr/bin/install -c -m 644 libgcc.a ${PREFIX}/lib/gcc/${TARGET}/4.5.3
         ;;
     esac
     
@@ -452,8 +454,7 @@ build_profile()
 	--build=${BUILD}              \
 	--host=${TARGET}              \
 	--target=${TARGET}            \
-	--prefix=${PREFIX}            \
-	|| exit
+	--prefix=${PREFIX}
 
     make ${PARALLELISM}
     make install
