@@ -307,49 +307,24 @@ build_gcc()
     mkdir -p gcc
     cd gcc
 
-    case ${gcc_src} in
-        gcc)
-            ${BASE_DIRECTORY}/${gcc_src}/configure	\
-            --with-gcc                     \
-            --with-gnu-ld                  \
-            --with-gnu-as                  \
-            --build=${BUILD}               \
-            --target=${TARGET}             \
-            --host=${HOST}                 \
-            --prefix=${PREFIX}             \
-            --enable-threads=win32         \
-            --disable-nls                  \
-            --enable-languages=c,c++       \
-            --disable-win32-registry       \
-            --disable-multilib             \
-            --disable-interwork            \
-            --without-newlib               \
-            --enable-checking              \
-            --with-headers
-        ;;
-        gcc-*)   
-           ${BASE_DIRECTORY}/${gcc_src}/configure	\
-            --with-gcc                     \
-            --with-gnu-ld                  \
-            --with-gnu-as                  \
-            --build=${BUILD}               \
-            --target=${TARGET}             \
-            --host=${HOST}                 \
-            --prefix=${PREFIX}             \
-            --enable-threads=win32         \
-            --disable-nls                  \
-            --enable-languages=c,c++       \
-            --disable-win32-registry       \
-            --disable-multilib             \
-            --disable-interwork            \
-            --without-newlib               \
-            --enable-checking              \
-            --with-headers			\
-            --disable-__cxa_atexit
-        ;;
-    esac
-    
-
+    ${BASE_DIRECTORY}/${gcc_src}/configure	\
+        --with-gcc                     \
+        --with-gnu-ld                  \
+        --with-gnu-as                  \
+        --build=${BUILD}               \
+        --target=${TARGET}             \
+        --host=${HOST}                 \
+        --prefix=${PREFIX}             \
+        --enable-threads=win32         \
+        --disable-nls                  \
+        --enable-languages=c,c++       \
+        --disable-win32-registry       \
+        --disable-multilib             \
+        --disable-interwork            \
+        --without-newlib               \
+        --enable-checking              \
+        --with-headers                 \
+        --disable-__cxa_atexit
 # we build libstdc++ as dll, so we don't need this.    
 #  --enable-fully-dynamic-string  \
 #	--enable-sjlj-exceptions	\
