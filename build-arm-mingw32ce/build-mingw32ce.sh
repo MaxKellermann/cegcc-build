@@ -257,20 +257,12 @@ build_bootstrap_gcc()
 	--without-newlib               \
 	--enable-checking
     
-    case ${gcc_src} in
-        gcc)
-            make ${PARALLELISM} all-gcc
-            make install-gcc
-        ;;
-        gcc-*)   
-            make ${PARALLELISM} all-gcc
-            make configure-target-libgcc
-            make install-gcc
-            cd ${TARGET}/libgcc
-            make ${PARALLELLISM} libgcc.a
-            /usr/bin/install -c -m 644 libgcc.a ${PREFIX}/lib/gcc/${TARGET}/4.6.2
-        ;;
-    esac
+    make ${PARALLELISM} all-gcc
+    make configure-target-libgcc
+    make install-gcc
+    cd ${TARGET}/libgcc
+    make ${PARALLELLISM} libgcc.a
+    /usr/bin/install -c -m 644 libgcc.a ${PREFIX}/lib/gcc/${TARGET}/4.6.2
     
     cd ${BUILD_DIR}
 }
