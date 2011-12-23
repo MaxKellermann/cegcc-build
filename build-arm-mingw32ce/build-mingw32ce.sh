@@ -268,7 +268,7 @@ build_bootstrap_gcc()
             make install-gcc
             cd ${TARGET}/libgcc
             make ${PARALLELLISM} libgcc.a
-            /usr/bin/install -c -m 644 libgcc.a ${PREFIX}/lib/gcc/${TARGET}/4.5.3
+            /usr/bin/install -c -m 644 libgcc.a ${PREFIX}/lib/gcc/${TARGET}/4.6.2
         ;;
     esac
     
