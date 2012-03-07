@@ -16,10 +16,6 @@ export BUILD_DIR=`pwd`
 
 ac_default_prefix="$BUILD_DIR/../bindist-arm-mingw32ce"
 
-if test -z "${gcc_src}"; then
-    export gcc_src=gcc-4.4.0
-fi
-
 # The list of components, in build order.  There's a build_FOO
 # function for each of these components
 COMPONENTS=( binutils bootstrap_gcc mingw w32api gcc dlls )
@@ -243,7 +239,7 @@ build_binutils()
 
 build_bootstrap_gcc()
 {
-    configure_host_module $gcc_src gcc-bootstrap \
+    configure_host_module gcc gcc-bootstrap \
 	--with-gcc                     \
 	--with-gnu-ld                  \
 	--with-gnu-as                  \
@@ -319,7 +315,7 @@ build_mingw()
 
 build_gcc()
 {
-    configure_host_module ${gcc_src} gcc \
+    configure_host_module gcc gcc \
         --with-gcc                     \
         --with-gnu-ld                  \
         --with-gnu-as                  \
@@ -495,7 +491,7 @@ done
 
 export TARGET="arm-mingw32ce"
 #export TARGET="arm-wince-mingw32ce"
-export BUILD=`sh ${BASE_DIRECTORY}/${gcc_src}/config.guess`
+export BUILD=`sh ${BASE_DIRECTORY}/gcc/config.guess`
 if [ "x${host}" != "x" ]; then
     export HOST="${host}"
 else

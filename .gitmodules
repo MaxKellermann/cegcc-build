@@ -4,8 +4,8 @@
 [submodule "binutils"]
 	path = binutils
 	url = git://git.xcsoar.org/xcsoar/max/cegcc-binutils.git
-[submodule "gcc-4.4.0"]
-	path = gcc-4.4.0
+[submodule "gcc"]
+	path = gcc
 	url = git://git.xcsoar.org/xcsoar/max/cegcc-gcc.git
 [submodule "mingw"]
 	path = mingw
