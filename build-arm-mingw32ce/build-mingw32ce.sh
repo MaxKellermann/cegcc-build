@@ -18,7 +18,7 @@ ac_default_prefix="$BUILD_DIR/../bindist-arm-mingw32ce"
 
 # The list of components, in build order.  There's a build_FOO
 # function for each of these components
-COMPONENTS=( binutils bootstrap_gcc mingw w32api gcc dlls )
+COMPONENTS=( binutils bootstrap_gcc mingw w32api gcc )
 #profile docs 
 COMPONENTS_NUM=${#COMPONENTS[*]}
 
@@ -421,40 +421,6 @@ build_profile()
     configure_target_module profile profile
 
     make ${PARALLELISM}
-    make install
-
-    cd ${BUILD_DIR}
-}
-
-obuild_dlls()
-{
-    echo ""
-    echo "BUILDING DLL libraries --------------------------"
-    echo ""
-    echo ""
-
-    cd ${BUILD_DIR}
-
-    mkdir -p dll
-    cd dll
-
-    cd ${BASE_DIRECTORY}
-    ${BASE_DIRECTORY}/build-mingw32ce-dlls.sh
-
-    cd ${BUILD_DIR}
-}
-
-build_dlls()
-{
-    echo ""
-    echo "BUILDING DLL libraries --------------------------"
-    echo ""
-    echo ""
-
-    cd ${BUILD_DIR}
-
-    cd ${BASE_DIRECTORY}/mingwdll
-    make
     make install
 
     cd ${BUILD_DIR}
