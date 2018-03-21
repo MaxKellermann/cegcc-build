@@ -1,15 +1,15 @@
 [submodule "w32api"]
 	path = w32api
-	url = git://git.xcsoar.org/xcsoar/max/cegcc-w32api.git
+	url = git://github.com/MaxKellermann/w32api
 [submodule "binutils"]
 	path = binutils
-	url = git://git.xcsoar.org/xcsoar/max/cegcc-binutils.git
+	url = git://github.com/MaxKellermann/binutils-gdb
 [submodule "gcc"]
 	path = gcc
-	url = git://git.xcsoar.org/xcsoar/max/cegcc-gcc.git
+	url = git://github.com/MaxKellermann/gcc
 [submodule "mingw"]
 	path = mingw
-	url = git://git.xcsoar.org/xcsoar/max/cegcc-mingw.git
+	url = git://github.com/MaxKellermann/mingwrt
 [submodule "mingwdll"]
 	path = mingwdll
 	url = git://git.xcsoar.org/xcsoar/max/cegcc-mingwdll.git
