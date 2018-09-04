@@ -2,7 +2,7 @@ This is meta-repository to build entire CeGCC toolchain.
 
 Clone this repository using::
 
- git clone git://gitorious.org/cegcc/cegcc-build.git
+ git clone git://github.com/MaxKellermann/cegcc-build
 
 To build::
 
