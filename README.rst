@@ -10,7 +10,9 @@ To build::
  git submodule init
  git submodule update
  cd build-arm-mingw32ce
- ./build-mingw32ce.sh --prefix=/where/to/install
+ mkdir build-mingw32ce
+ cd build-mingw32ce
+ sh ../build-mingw32ce.sh --prefix=/where/to/install
 
 If you won't specify `--prefix`, it will install to
 `cegcc-build/bindist-arm-mingw32ce/`
