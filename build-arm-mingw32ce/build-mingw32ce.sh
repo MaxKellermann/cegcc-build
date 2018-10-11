@@ -239,7 +239,9 @@ build_binutils()
 
 build_bootstrap_gcc()
 {
-    configure_host_module gcc gcc-bootstrap \
+    # remove CPP= on some other system
+    CPP=`which cpp` configure_host_module gcc gcc-bootstrap \
+  --with-sysroot=${BASE_DIRECTORY}/w32api/ \
 	--with-gcc                     \
 	--with-gnu-ld                  \
 	--with-gnu-as                  \
@@ -315,7 +317,8 @@ build_mingw()
 
 build_gcc()
 {
-    configure_host_module gcc gcc \
+    CPP=`which cpp` configure_host_module gcc gcc \
+        --with-sysroot=${BASE_DIRECTORY}/w32api/ \
         --with-gcc                     \
         --with-gnu-ld                  \
         --with-gnu-as                  \
@@ -481,6 +484,7 @@ mkdir -p ${PREFIX}
 # Now actually build them.
 eval "set -- $split_components"
 while [ -n "$1" ]; do
+    echo "Building Component ${1}"
     build_${1}
     shift
 done

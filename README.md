@@ -15,6 +15,7 @@ git submodule update
 cd build-arm-mingw32ce
 mkdir build-mingw32ce
 cd build-mingw32ce
+export CPP=\`which cpp\` # otherwise gcc installation will look at /lib/cpp
 sh ../build-mingw32ce.sh --prefix=/where/to/install
 ```
 
@@ -85,3 +86,24 @@ nix-shell with `hardeningDisable = [ "format" ];` helps. (compare to `default.ni
 
   * <https://wiki.debian.org/Hardening#Using_Hardening_Options>
   * <https://nixos.org/releases/nixpkgs/nixpkgs-16.09pre90369.202d9e2/manual/#sec-hardening-in-nixpkgs>
+
+## libgcc
+
+> checking how to run the C preprocessor... /lib/cpp
+> configure: error: in `/home/geier/work/ka/cegcc-build/build-arm-mingw32ce/build-mingw32ce/gcc-bootstrap/arm-mingw32ce/libgcc':
+> configure: error: C preprocessor "/lib/cpp" fails sanity check
+> See `config.log' for more details.
+> make: *** [Makefile:13029: configure-target-libgcc] Error 1
+
+The installation assumes to find a compiler at `/lib/cpp`. This is not the case on all systems. 
+If you have a working compiler at `/usr/bin/cpp` you can create a symlink `ln -s /usr/bin/cpp /lib/cpp` or simpler set
+ the `CPP` variable properly before calling any script, 
+i.e. `export CPP=\`which cpp\`` or `CPP=\`which cpp\` sh ../build-mingw32ce.sh --prefix=/where/to/install`.
+If this also causes problems, look in `build-mingw32ce.sh`, jump to the function `build_bootstrap_gcc` and `build_gcc` and set `CPP` before `configure_host_module`.
+On a linux environment, make sure `cpp` links to gcc's preprocessor and not clang's.
+Compare to <https://www.mail-archive.com/cegcc-devel@lists.sourceforge.net/msg02259.html>, <https://stackoverflow.com/questions/43763527/compile-gcc-7-error-c-preprocessor-lib-cpp-fails-sanity-check>.
+
+
+# Helpfull stuff
+
+    * <http://www.nathancoulson.com/proj_cross.php>
