@@ -3,22 +3,25 @@
 set -e
 
 BASE_DIRECTORY=`dirname $0`
-BASE_DIRECTORY=`(cd ${BASE_DIRECTORY}; cd ..; pwd)`
+BASE_DIRECTORY=`(cd ${BASE_DIRECTORY}; pwd)`
 ME=`basename $0`
 
 # FIXME: some components need this (mingwdll), but they shouldn't.
 export BASE_DIRECTORY
+
+GCCBUILD_CPP=`which cpp`
 
 #
 # Initializations.
 #
 export BUILD_DIR=`pwd`
 
-ac_default_prefix="$BUILD_DIR/../bindist-arm-mingw32ce"
+#ac_default_prefix="$BUILD_DIR/../bindist-arm-mingw32ce"
+ac_default_prefix="$BASE_DIRECTORY/bindist-arm-mingw32ce"
 
 # The list of components, in build order.  There's a build_FOO
 # function for each of these components
-COMPONENTS=( binutils bootstrap_gcc mingw w32api gcc )
+COMPONENTS=( binutils headers bootstrap_gcc mingw w32api gcc )
 #profile docs 
 COMPONENTS_NUM=${#COMPONENTS[*]}
 
@@ -237,11 +240,23 @@ build_binutils()
     cd ${BUILD_DIR}
 }    
 
+build_headers()
+{
+    echo ""
+    echo "BUILDING HEADERS --------------------------"
+    echo ""
+    echo ""
+
+    mkdir -p $PREFIX/$TARGET/include
+    cp -R ${BASE_DIRECTORY}/win32api/include/* $PREFIX/$TARGET/include
+    cp -R ${BASE_DIRECTORY}/mingw/include/* $PREFIX/$TARGET/include
+
+}    
+
 build_bootstrap_gcc()
 {
-    # remove CPP= on some other system
-    CPP=`which cpp` configure_host_module gcc gcc-bootstrap \
-  --with-sysroot=${BASE_DIRECTORY}/w32api/ \
+  export CPP=$GCCBUILD_CPP 
+  configure_host_module gcc gcc-bootstrap \
 	--with-gcc                     \
 	--with-gnu-ld                  \
 	--with-gnu-as                  \
@@ -263,9 +278,10 @@ build_bootstrap_gcc()
 
     cd ${TARGET}/libgcc
     make ${PARALLELLISM} libgcc.a
-    /usr/bin/install -c -m 644 libgcc.a ${PREFIX}/lib/gcc/${TARGET}/${gcc_version}
+    install -c -m 644 libgcc.a ${PREFIX}/lib/gcc/${TARGET}/${gcc_version}
     
     cd ${BUILD_DIR}
+  unset CPP
 }
 
 build_w32api()
@@ -317,8 +333,8 @@ build_mingw()
 
 build_gcc()
 {
-    CPP=`which cpp` configure_host_module gcc gcc \
-        --with-sysroot=${BASE_DIRECTORY}/w32api/ \
+    export CPP=$GCCBUILD_CPP 
+    configure_host_module gcc gcc \
         --with-gcc                     \
         --with-gnu-ld                  \
         --with-gnu-as                  \
@@ -345,6 +361,7 @@ build_gcc()
     #
 
     cd ${BUILD_DIR}
+    unset CPP
 }
 
 build_gdb()
@@ -484,7 +501,7 @@ mkdir -p ${PREFIX}
 # Now actually build them.
 eval "set -- $split_components"
 while [ -n "$1" ]; do
-    echo "Building Component ${1}"
+    echo "Building component $1"
     build_${1}
     shift
 done

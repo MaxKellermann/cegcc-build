@@ -1,6 +1,6 @@
 [submodule "w32api"]
 	path = w32api
-	url = git://github.com/MaxKellermann/w32api
+	url = git://github.com/geier1993/w32api
 [submodule "binutils"]
 	path = binutils
 	url = git://github.com/MaxKellermann/binutils-gdb

@@ -12,26 +12,30 @@ To build:
 cd cegcc-build
 git submodule init
 git submodule update
-cd build-arm-mingw32ce
-mkdir build-mingw32ce
-cd build-mingw32ce
-export CPP=\`which cpp\` # otherwise gcc installation will look at /lib/cpp
+mkdir build
+cd build
 sh ../build-mingw32ce.sh --prefix=/where/to/install
 ```
 
-If you won't specify `--prefix`, it will install to `cegcc-build/bindist-arm-mingw32ce/`.
+If you won't specify `--prefix`, it will install to `cegcc-build/bindist-arm-mingw32ce/`. I specified `~/.local-arm-cegcc/` 
 
 To update afterwards:
 
 ```
 git pull
 git submodule update
-cd build-arm-mingw32ce/build-mingw32ce
+cd build
 sh ../build-mingw32ce.sh --prefix=/where/to/install
 ```
 
 (After update, to get 100% clean-room, you may want to rebuild
 everything from scratch.)
+
+To build the tool chain step by step, look at `build-mingw32ce.sh` line 24 where an array of components is listed.
+First `binutils` is installed, then all required headers are copied before gcc is bootstraped.
+Then mingw and the win32api are built and installed before finally the full gcc and libgcc are build and installed.
+
+You can put one component at once at the list i.e. `COMPONENTS=( bootstrap_gcc )` to re-run only specific parts of the tool chain.
 
 # Errors
 
@@ -50,6 +54,8 @@ everything from scratch.)
 
 Configure has been called from a wrong directory, probably the whole
 build script has been called from a wrong directory.
+
+This is the reason why the build script has been slightly reorganized from Max Kellermann where the error naturally occured for me.
 
 ## GCC
 
@@ -103,6 +109,11 @@ If this also causes problems, look in `build-mingw32ce.sh`, jump to the function
 On a linux environment, make sure `cpp` links to gcc's preprocessor and not clang's.
 Compare to <https://www.mail-archive.com/cegcc-devel@lists.sourceforge.net/msg02259.html>, <https://stackoverflow.com/questions/43763527/compile-gcc-7-error-c-preprocessor-lib-cpp-fails-sanity-check>.
 
+
+## win32api
+
+The win32api has forked to apply a small fix in `libce/Makefile.in` where `AS_FOR_TARGET` has referenced to itself by `${AS_FOR_TARGET}`. 
+Problem was resolved by accessing the proper makefile variable `@AS_FOR_TARGET@` instead of `${AS_FOR_TARGET}`
 
 # Helpfull stuff
 
