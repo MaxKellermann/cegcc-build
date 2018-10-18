@@ -1,9 +1,14 @@
-This is meta-repository to build entire CeGCC toolchain.
+This is meta-repository to build entire CeGCC toolchain, forked from Max Kellermann.
+Compilation managed on nixos-18.03.
+
+Please note: the whole CeGCC project is dead, compiling libraries like OpenSSL for WinCE is more successfull using
+ Windows, Visual Studio 2008 and embedded Visual C++ 4.0. (To maintain support for an project we now have a VirtualBox
+ running Windows with all required components).
 
 Clone this repository using:
 
 ```
-git clone git://github.com/MaxKellermann/cegcc-build
+git clone git://github.com/geier1993/cegcc-build
 ```
 
 To build:
