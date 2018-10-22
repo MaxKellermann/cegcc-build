@@ -176,9 +176,9 @@ components=`echo "${components}" | sed -e 's/[ 	,][ 	,]*/,/g' -e 's/,$//'`
 if [ -d ${BUILD_DIR}/.svn ]; then
 	echo "Don't build in a source directory, please create an empty directory and build there."
 	echo "Example :"
-	echo "  mkdir build-mingw32ce"
-	echo "  cd build-mingw32ce"
-	echo "  sh ../build-mingw32ce.sh $@"
+	echo "  mkdir /tmp/cegcc-output"
+	echo "  cd /tmp/cegcc-output"
+	echo "  \$OLDPWD/build.sh $@"
 	exit 1
 fi
 
