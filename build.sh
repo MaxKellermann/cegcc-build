@@ -173,7 +173,7 @@ fi
 components=`echo "${components}" | sed -e 's/[ 	,][ 	,]*/,/g' -e 's/,$//'`
 
 # Don't build in source directory, it will clobber things and cleanup is hard.
-if [ -d ${BUILD_DIR}/.svn ]; then
+if [ -d ${BUILD_DIR}/.git ]; then
 	echo "Don't build in a source directory, please create an empty directory and build there."
 	echo "Example :"
 	echo "  mkdir /tmp/cegcc-output"
