@@ -7,8 +7,7 @@ Clone this repository using::
 To build::
 
  cd cegcc-build
- git submodule init
- git submodule update
+ git submodule update --init
  cd build-arm-mingw32ce
  ./build-mingw32ce.sh --prefix=/where/to/install
 
