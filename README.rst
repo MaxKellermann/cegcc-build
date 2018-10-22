@@ -10,7 +10,7 @@ To build::
  git submodule update --init
  mkdir /tmp/cegcc-output
  cd /tmp/cegcc-output
- $OLDPWD/build-arm-mingw32ce/build-mingw32ce.sh --prefix=/where/to/install
+ $OLDPWD/build.sh --prefix=/where/to/install
 
 If you won't specify `--prefix`, it will install to
 `cegcc-build/bindist-arm-mingw32ce/`
