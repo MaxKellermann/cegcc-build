@@ -14,7 +14,7 @@ export BASE_DIRECTORY
 #
 export BUILD_DIR=`pwd`
 
-ac_default_prefix="$BUILD_DIR/../bindist-arm-mingw32ce"
+ac_default_prefix="/opt/cegcc"
 
 # The list of components, in build order.  There's a build_FOO
 # function for each of these components

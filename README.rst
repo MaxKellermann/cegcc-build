@@ -13,7 +13,7 @@ To build::
  $OLDPWD/build.sh --prefix=/where/to/install
 
 If you won't specify `--prefix`, it will install to
-`cegcc-build/bindist-arm-mingw32ce/`
+``/opt/cegcc``
 
 To update afterwards::
 
