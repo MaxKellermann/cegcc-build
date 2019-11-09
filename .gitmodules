@@ -1,15 +1,12 @@
 [submodule "w32api"]
 	path = w32api
-	url = git://github.com/MaxKellermann/w32api
+	url = ../../MaxKellermann/w32api
 [submodule "binutils"]
 	path = binutils
-	url = git://github.com/MaxKellermann/binutils-gdb
+	url = ../../MaxKellermann/binutils-gdb
 [submodule "gcc"]
 	path = gcc
-	url = git://github.com/MaxKellermann/gcc
+	url = ../../MaxKellermann/gcc
 [submodule "mingw"]
 	path = mingw
-	url = git://github.com/MaxKellermann/mingwrt
-[submodule "mingwdll"]
-	path = mingwdll
-	url = git://git.xcsoar.org/xcsoar/max/cegcc-mingwdll.git
+	url = ../../MaxKellermann/mingwrt
