@@ -260,7 +260,7 @@ build_bootstrap_gcc()
     gcc_version=`${PREFIX}/bin/${TARGET}-gcc -dumpversion`
 
     cd ${TARGET}/libgcc
-    make ${PARALLELLISM} libgcc.a
+    make ${PARALLELISM} libgcc.a
     /usr/bin/install -c -m 644 libgcc.a ${PREFIX}/lib/gcc/${TARGET}/${gcc_version}
     
     cd ${BUILD_DIR}
