@@ -43,6 +43,7 @@ Usage: $0 [OPTIONS] ...
   --prefix=PREFIX         install toolchain in PREFIX
 			  [$ac_default_prefix]
   --host=HOST             host on which the toolchain will run [BUILD]
+  --target=TARGET         configure for building compilers for TARGET [arm-mingw32ce]
   -j, --parallelism PARALLELISM  Pass PARALLELISM as -jPARALLELISM
                           to make invocations.
   --components=LIST       specify which components to build
@@ -101,6 +102,11 @@ do
     ac_prev=host ;;
   --host=*)
     host=$ac_optarg ;;
+
+  --target)
+    ac_prev=target ;;
+  --target=*)
+    target=$ac_optarg ;;
 
   --incremental)
     incremental=yes ;;
@@ -455,9 +461,14 @@ while [ -n "$1" ]; do
     shift
 done
 
-export TARGET="arm-mingw32ce"
-#export TARGET="arm-wince-mingw32ce"
+if [ "x${target}" != "x" ]; then
+    export TARGET="${target}"
+else
+    export TARGET="arm-mingw32ce"
+fi
+
 export BUILD=`sh ${BASE_DIRECTORY}/gcc/config.guess`
+
 if [ "x${host}" != "x" ]; then
     export HOST="${host}"
 else
