@@ -234,6 +234,7 @@ build_binutils()
     echo ""
     echo ""
     configure_host_module binutils binutils \
+	--disable-unit-tests \
 	--disable-nls		\
 	--disable-werror
 
